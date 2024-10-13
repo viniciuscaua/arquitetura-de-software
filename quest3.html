@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processador de Texto - Pipe e Filtros</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Processador de Texto - Pipe e Filtros</h2>
+
+        <!-- Camada de Apresentação -->
+        <textarea id="inputText" placeholder="Digite seu texto aqui..."></textarea>
+        <button onclick="processText()">Processar Texto</button>
+
+        <!-- Resultados após aplicação dos filtros -->
+        <div class="results" id="results">
+            <h3>Resultado Final:</h3>
+            <p><strong>Texto processado:</strong> <span id="processedText"></span></p>
+            <p><strong>Número de palavras:</strong> <span id="wordCount"></span></p>
+        </div>
+    </div>
+
+    <script>
+        /* Camada de Filtros */
+
+        // Filtro 1: Converter o texto para letras maiúsculas
+        function convertToUpperCase(text) {
+            return text.toUpperCase();
+        }
+
+        // Filtro 2: Remover espaços extras
+        function removeExtraSpaces(text) {
+            return text.trim().replace(/\s+/g, ' ');
+        }
+
+        // Filtro 3: Contar o número de palavras
+        function countWords(text) {
+            if (text.length === 0) {
+                return 0;
+            }
+            return text.split(' ').length;
+        }
+
+        // Função que aplica os filtros em sequência (Pipe e Filtros)
+        function processText() {
+            let text = document.getElementById('inputText').value;
+
+            // Aplicação dos filtros em sequência
+            text = convertToUpperCase(text);  // Filtro 1
+            text = removeExtraSpaces(text);   // Filtro 2
+            const wordCount = countWords(text);  // Filtro 3
+
+            // Exibir o resultado final
+            document.getElementById('processedText').textContent = text;
+            document.getElementById('wordCount').textContent = wordCount;
+        }
+    </script>
+
+</body>
+</html>

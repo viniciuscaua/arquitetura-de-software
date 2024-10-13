@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Conversão de Temperatura</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .results {
+            margin-top: 20px;
+        }
+        .results h3 {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Conversão de Temperatura</h1>
+        <p>Insira a temperatura em Celsius:</p>
+        <input type="number" id="celsius" placeholder="Temperatura em Celsius">
+        <button onclick="converter()">Converter para Fahrenheit</button>
+
+        <div class="results">
+            <h3 id="resultado"></h3>
+            <h4 id="historicoTitle" style="display: none;">Histórico de Conversões:</h4>
+            <ul id="historico"></ul>
+        </div>
+    </div>
+
+    <script>
+        const historico = [];
+
+        function converter() {
+            const celsius = document.getElementById('celsius').value;
+            if (celsius === "") {
+                alert("Por favor, insira um valor válido.");
+                return;
+            }
+
+            const fahrenheit = (celsius * 9/5) + 32;
+            document.getElementById('resultado').innerHTML = `${celsius}°C é equivalente a ${fahrenheit.toFixed(2)}°F`;
+
+            historico.push(`${celsius}°C = ${fahrenheit.toFixed(2)}°F`);
+            exibirHistorico();
+        }
+
+        function exibirHistorico() {
+            const historicoList = document.getElementById('historico');
+            const historicoTitle = document.getElementById('historicoTitle');
+            
+            historicoList.innerHTML = ""; 
+            historico.forEach(conversao => {
+                const li = document.createElement('li');
+                li.textContent = conversao;
+                historicoList.appendChild(li);
+            });
+
+            if (historico.length > 0) {
+                historicoTitle.style.display = 'block';
+            }
+        }
+    </script>
+
+</body>
+</html>
